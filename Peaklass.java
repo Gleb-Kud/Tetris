@@ -64,7 +64,10 @@ public class Peaklass extends Application {
             }
         });
     }
-
+    /** siin on kaks juhtu
+     * 1. kui jõuame põrandani, siis kujund juba ei saa kuskile liikuda, seega teeme kõik tema poolt hõivatud välja plokid ühtedeks
+     * 2. kui veel pole takistuseni jõudnud, siis on mõttekäik sama nagu ülespool
+     */
     public static void liigutaAlla(Kujundid kujund1) {
         if (kujund1.a.getY() == kõrgus - suurus || kujund1.b.getY() == kõrgus - suurus || kujund1.c.getY() == kõrgus - suurus
                 || kujund1.d.getY() == kõrgus - suurus || kontrolliA(kujund1) || kontrolliB(kujund1) || kontrolliC(kujund1) || kontrolliD(kujund1)) {
