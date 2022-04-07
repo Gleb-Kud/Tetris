@@ -1,4 +1,4 @@
-package com.example.tetris;
+package com.example.tetriss;
 
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
@@ -29,6 +29,9 @@ public class Kujundid {
             case "r" -> värv = Color.RED;
             case "o" -> värv = Color.ORANGE;
             case "g" -> värv = Color.GREEN;
+            case "t" -> värv = Color.DEEPPINK;
+            case "oo" -> värv = Color.YELLOWGREEN;
+            case "bb" -> värv = Color.LIGHTBLUE;
         }
 
         this.a.setFill(värv);

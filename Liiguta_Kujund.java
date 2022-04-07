@@ -1,4 +1,4 @@
-package com.example.tetris;
+package com.example.tetriss;
 
 public class Liiguta_Kujund {
     public static final int suurus = Peaklass.suurus;
