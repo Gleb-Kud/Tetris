@@ -64,7 +64,7 @@ public class Tee_Kujund {
             d.setY(suurus);
             kujundiNimi = "r";
         }
-                                      //   **
+                                      //     **
         else if (random < 71.45) {    //    **
             a.setX(laius / 2 + suurus);
             a.setY(0);
@@ -76,7 +76,7 @@ public class Tee_Kujund {
             d.setY(suurus);
             kujundiNimi = "o";
         }
-                                      //     **
+                                      //   **
         else if (random < 85.74) {    //    **
             a.setX(laius / 2 - suurus);
             a.setY(0);
