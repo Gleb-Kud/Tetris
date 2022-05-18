@@ -449,13 +449,13 @@ public class Peaklass extends Application {
                 if (praegune.getY() < readEemaldamiseks.get(0) * suurus) {
                     väli[(int) praegune.getX() / suurus][(int) praegune.getY() / suurus] = 0;
                     praegune.setY(praegune.getY() + suurus);
-                   // väli[(int) praegune.getX() / suurus][(int) praegune.getY() / suurus] = 1;  //siin pole kindel, kas saab kohe
+                    väli[(int) praegune.getX() / suurus][(int) praegune.getY() / suurus] = 1;  //siin pole kindel, kas saab kohe
                 }
             }
             readEemaldamiseks.remove(0);
             kõikRistkülikud.clear();
             allesJäänudRistkülikud.clear();
-            for (Node node: paan.getChildren()) {
+            /*for (Node node: paan.getChildren()) {
                 if (node instanceof Rectangle)
                     kõikRistkülikud.add(node);
             }
@@ -463,7 +463,7 @@ public class Peaklass extends Application {
                 Rectangle praegune = (Rectangle) node;
                 väli[(int) praegune.getX() / suurus][(int) praegune.getY() / suurus] = 1;
             }
-            kõikRistkülikud.clear();
+            kõikRistkülikud.clear();*/
         }
 
     }
