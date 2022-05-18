@@ -1,10 +1,14 @@
-package com.example.tetrisparandatud;
+package com.example.tetriss;
 
-import java.io.IOException;
+import java.io.*;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Timer;
 import java.util.TimerTask;
+
+import com.example.tetriss.Kujundid;
+import com.example.tetriss.Tee_Kujund;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.event.EventHandler;
@@ -31,6 +35,8 @@ public class Peaklass extends Application {
     private static Kujundid järgmineKujund = Tee_Kujund.teeKujund(); // Esimene kujund, mis ekraanile tekib
     private static int kontrolli = 0;    //kui väli on üleni täis, siis game over
     private static boolean veelMängime = true;  //game overi puhul muutub falsiks
+    private static int punkte = 0;
+    private static Text skoor = new Text("Score: " + punkte);
 
     public static Kujundid getJärgmineKujund() {
         return järgmineKujund;
@@ -49,6 +55,9 @@ public class Peaklass extends Application {
         // Kui liigutada kujundit sobivasse kohta, muutuvad vastavad kujundi blokid väljas ühtedeks(1)
         // selline nummerdamine võib aidata, kui tahame täis read alt eemaldada
 
+        skoor.setX(220);
+        skoor.setY(10);
+        paan.getChildren().add(skoor);
         Kujundid a = järgmineKujund;
         paan.getChildren().addAll(a.a, a.b, a.c, a.d);  // Lisa kujundi blokid ekraanile
 
@@ -57,6 +66,7 @@ public class Peaklass extends Application {
         järgmineKujund = Tee_Kujund.teeKujund(); // Genereeri uus järgmine kujund
         stage.setScene(stseen);
         stage.setTitle("Tetris");
+        stage.setResizable(false);
         stage.show();
 
         /**
@@ -74,15 +84,22 @@ public class Peaklass extends Application {
                             kontrolli++;
                         else
                             kontrolli = 0;
-                        if (kontrolli > 10) { //põhimõte on see, et kui kujundi mingi ruut jääb koordinaatide algusesse rohkem kui 10 iteratsiooni (võib reguleerida), see tähendab et teda liikuda enam ei saa
+                        if (kontrolli > 5) { //põhimõte on see, et kui kujundi mingi ruut jääb koordinaatide algusesse rohkem kui 10 iteratsiooni (võib reguleerida), see tähendab et teda liikuda enam ei saa
                             Text gameOver = new Text("GAME OVER");
                             gameOver.setX(50);
                             gameOver.setY(200);
                             paan.getChildren().add(gameOver);
                             veelMängime = false;
+
                         }
-                        if (kontrolli > 20)
-                            System.exit(0);
+                        if (kontrolli > 20){
+                            try(BufferedWriter br = new BufferedWriter(new OutputStreamWriter(new FileOutputStream("Scores.txt", true)))) {
+                                br.write(LocalDateTime.now() + ";" + punkte + System.lineSeparator());
+                            } catch (IOException e) {
+                                throw new RuntimeException(e);
+                            }
+                        System.exit(0);}
+
 
                         if (veelMängime) {
                             liigutaAlla(aktiivneKujund);
@@ -142,6 +159,7 @@ public class Peaklass extends Application {
             väli[(int) kujund1.c.getX() / suurus][(int) kujund1.c.getY() / suurus] = 1;
             väli[(int) kujund1.d.getX() / suurus][(int) kujund1.d.getY() / suurus] = 1;
             eemaldaRead(paan);
+
 
             Kujundid a = järgmineKujund; // Võta järgmine kujund,
             aktiivneKujund = a;  // muuda ta aktiivseks
@@ -434,6 +452,8 @@ public class Peaklass extends Application {
             täidetudRuutudegaVälju = 0;
         }
         while (readEemaldamiseks.size() > 0) {
+            punkte+=10;
+            skoor.setText("Score: " + punkte);
             for (Node node: paan.getChildren()) {  //tundub, et lihtsalt läbi käia kõiki ristkülikuid pole võimalik (vist ei ole meetodit getAllRectangle vms..)
                 if (node instanceof Rectangle)
                     kõikRistkülikud.add(node);

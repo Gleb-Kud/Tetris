@@ -9,13 +9,13 @@ import javafx.scene.shape.Rectangle;
  * need on Rectangles a,b,c,d
  */
 public class Kujundid {
-    Rectangle a;
-    Rectangle b;
-    Rectangle c;
-    Rectangle d;
-    int praeguneOrientatsioon = 1;
-    String kujundiNimi;
-    Color värv;
+    public Rectangle a;
+    public Rectangle b;
+    public Rectangle c;
+    public Rectangle d;
+    public int praeguneOrientatsioon = 1;
+    public String kujundiNimi;
+    public Color värv;
 
     public Kujundid(Rectangle a, Rectangle b, Rectangle c, Rectangle d, String kujundiNimi) {
         this.a = a;
