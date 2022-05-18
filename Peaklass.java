@@ -22,8 +22,8 @@ import javafx.stage.Stage;
 public class Peaklass extends Application {
     public static final int suurus = 25;   // Ühe ruudu suurus mänguväljal
     public static final int käiguSuurus = suurus;
-    public static int kõrgus = suurus * 24;  // Stseeni mõõdud:  y koordinaadid
-    public static int laius = suurus * 12;   // x koordinaadid
+    public static int kõrgus = suurus * 24;  // Stseeni mõõdud:  y koordinaadid   //muudetud
+    public static int laius = suurus * 12;   // x koordinaadid                   //muudetud
     public static int[][] väli = new int[laius / suurus][kõrgus / suurus]; // Mängu väli, jagatud ruutudeks
     private static Pane paan = new Pane();
     private static Scene stseen = new Scene(paan, laius, kõrgus);
@@ -89,7 +89,7 @@ public class Peaklass extends Application {
                 });
             }
         };
-        timer.schedule(task, 0, 100); //siin mida väiksem on period, seda kiirem nad alla liiguvad
+        timer.schedule(task, 0, 200); //siin mida väiksem on period, seda kiirem nad alla liiguvad
     }
     // Liigutab aktiivset kujundit vastavalt nupuvajutusele
     private static void liiguta() {
@@ -106,9 +106,9 @@ public class Peaklass extends Application {
         });
     }
 
-    //meetodid, mis liigutavad eraldi iga ristkülikut roteerimiseks
+    //meetodid, mis liigutavad eraldi iga ristkülikut roteerimiseks (ka pole vaja)
 
-    private void liigutaRistkülikAlla(Rectangle rectangle) {
+   /* private void liigutaRistkülikAlla(Rectangle rectangle) {
         if (rectangle.getY() + käiguSuurus < kõrgus)
             rectangle.setY((rectangle.getY() + käiguSuurus));
     }
@@ -126,7 +126,7 @@ public class Peaklass extends Application {
     private void liigutaRistkülikVasakule(Rectangle rectangle) {
         if (rectangle.getX() - käiguSuurus >= 0)
             rectangle.setX((rectangle.getX() - käiguSuurus));
-    }
+    }*/
     /** siin on kaks juhtu
      * 1. kui jõuame põrandani või varasema kujundini, siis kujund juba ei saa kuskile liikuda, seega teeme kõik tema poolt hõivatud välja blokid ühtedeks
      * 2. kui veel pole takistuseni jõudnud, siis liiguta kujundit edasi
@@ -448,12 +448,21 @@ public class Peaklass extends Application {
                 if (praegune.getY() < readEemaldamiseks.get(0) * suurus) {
                     väli[(int) praegune.getX() / suurus][(int) praegune.getY() / suurus] = 0;
                     praegune.setY(praegune.getY() + suurus);
-                    väli[(int) praegune.getX() / suurus][(int) praegune.getY() / suurus] = 1;  //siin pole kindel, kas saab kohe
+                   // väli[(int) praegune.getX() / suurus][(int) praegune.getY() / suurus] = 1;  //siin pole kindel, kas saab kohe
                 }
             }
             readEemaldamiseks.remove(0);
             kõikRistkülikud.clear();
             allesJäänudRistkülikud.clear();
+            for (Node node: paan.getChildren()) {
+                if (node instanceof Rectangle)
+                    kõikRistkülikud.add(node);
+            }
+            for (Node node : kõikRistkülikud) {   //siin vist seda vaja, vähemalt sellega töötab paremini
+                Rectangle praegune = (Rectangle) node;
+                väli[(int) praegune.getX() / suurus][(int) praegune.getY() / suurus] = 1;
+            }
+            kõikRistkülikud.clear();
         }
 
     }
@@ -475,13 +484,13 @@ public class Peaklass extends Application {
         return (väli[(int) form.d.getX() / suurus][((int) form.d.getY() / suurus) + 1] == 1);
     }
 
-    /**
+   /* /**  Seda polnud vaja
      *
      * @param rectangle parasjagu vaadeldav ristküliku ruut (a, b, c või d)
      * @param horisontaalselt kuhu me tahame selle ruudu orienteerida (nt 1 --> ühe võrra paremale, või nt -1 --> ühe võrra vasakule, 0 tähendab, et ta ei liigu)
      * @param vertikaalselt  kuhu me tahame selle ruudu orienteerida (nt 1 --> ühe võrra üles, või nt -1 --> ühe võrra alla, 0 tähendab, et ta ei liigu)
      * @return  kas me saame orienteerida seda ruutu nii, nagu tahame
-     */
+
 
     private static boolean kontrolliRotatsioon(Rectangle rectangle, int horisontaalselt, int vertikaalselt) {
         boolean saabHorisontaalselt = false;
@@ -500,7 +509,7 @@ public class Peaklass extends Application {
 
         //tagastamises arvestame ka seda, et see välja ruut, kuhu me tahame meie parasjagu oleva ruudu paigutada, oles mitte hõivatud ehk null
         return väli[((int) rectangle.getX() / suurus) + horisontaalselt][((int) rectangle.getY() / suurus - vertikaalselt)] == 0 && saabHorisontaalselt && saabVertikaalselt;
-    }
+    }*/
 
 
 
@@ -508,3 +517,4 @@ public class Peaklass extends Application {
         launch();
     }
 }
+
