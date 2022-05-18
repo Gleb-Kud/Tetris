@@ -428,6 +428,7 @@ public class Peaklass extends Application {
             }
             if (täidetudRuutudegaVälju == väli.length)
                 readEemaldamiseks.add(i);
+            täidetudRuutudegaVälju = 0;
         }
         while (readEemaldamiseks.size() > 0) {
             for (Node node: paan.getChildren()) {  //tundub, et lihtsalt läbi käia kõiki ristkülikuid pole võimalik (vist ei ole meetodit getAllRectangle vms..)
