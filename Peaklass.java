@@ -81,6 +81,8 @@ public class Peaklass extends Application {
                             paan.getChildren().add(gameOver);
                             veelMängime = false;
                         }
+                        if (kontrolli > 20)
+                            System.exit(0);
 
                         if (veelMängime) {
                             liigutaAlla(aktiivneKujund);
@@ -101,6 +103,7 @@ public class Peaklass extends Application {
                     case LEFT -> Liiguta_Kujund.liigutaVasakule(aktiivneKujund);
                     case DOWN -> liigutaAlla(aktiivneKujund);         //siin on vaja teha peaklassis
                     case SPACE -> keera(aktiivneKujund);
+                    case ESCAPE -> System.exit(0);
                 }
             }
         });
