@@ -9,7 +9,7 @@ public class Tee_Kujund {
 
 
 
-    public static Kujundid teeKujund() {
+    public static Kujund teeKujund() {
         double random =  (Math.random() * 100);
         String kujundiNimi;
         Rectangle a = new Rectangle(suurus - 1, suurus - 1);  //suurus - 1, et oleksid väikesed vahed iga ploki vahel (et näeks paremini välja)
@@ -99,7 +99,7 @@ public class Tee_Kujund {
             d.setY(0);
             kujundiNimi = "g";
         }
-        return new Kujundid(a, b, c, d, kujundiNimi);
+        return new Kujund(a, b, c, d, kujundiNimi);
 
     }
 }
